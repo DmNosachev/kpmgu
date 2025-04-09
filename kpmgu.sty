@@ -25,7 +25,13 @@
 
 \RequirePackage{microtype}
 
+% автоматизация запрета на отрыв предлогов
+\RequirePackage{luavlna}
+\singlechars{russian}{ВСАКИОУвсакиоу}
+
 \RequirePackage{enumitem}
+% Используем короткое тире (endash) для ненумерованных списков
+\renewcommand{\labelitemi}{\normalfont{--}}
 
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
