@@ -1,0 +1,96 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{kpmgu}[2025/04/08 kpmgu style]
+
+\RequirePackage{xkeyval}
+
+\define@boolkey{kpmgu}{grid}[true]{}
+\ProcessOptionsX<kpmgu>\relax
+
+\RequirePackage[paperheight=290mm,
+            paperwidth=205mm,
+            top=35mm,
+            bottom=30mm,
+            left=20mm,
+            right=20mm]{geometry}
+
+\RequirePackage[no-math]{fontspec}
+
+%\setsansfont{Liberation Sans}
+%\setmonofont{Liberation Mono}
+\setmainfont{Erewhon}
+
+\RequirePackage{polyglossia}
+\setmainlanguage[babelshorthands=true]{russian}
+\setotherlanguage{english}
+
+\RequirePackage{microtype}
+
+\RequirePackage{enumitem}
+
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage[math-style=ISO, mathrm=sym]{unicode-math}
+%\setmathfont[Scale=MatchLowercase, StylisticSet={3,4}]{Erewhon Math}
+\setmathfont[Scale=MatchLowercase, StylisticSet=2]{NewCMMath-Book}
+
+% длинные векторы через \vv, в \caption защищать через \protect
+\RequirePackage{esvect}
+
+\RequirePackage{tabularx, multirow, makecell, caption}
+\RequirePackage{booktabs}
+\RequirePackage{graphicx}
+\RequirePackage[dvipsnames]{xcolor}
+\definecolor{colorLogo}{HTML}{81322B}
+
+\RequirePackage{tikz}
+\RequirePackage{pgfplots}
+
+\RequirePackage{xfp}
+\newcommand{\exgrid}[1]{
+    \ifKV@kpmgu@grid
+         \begin{tikzpicture}
+            \draw[step=0.05\linewidth-0.01pt,black,thin] (0,0) grid (\linewidth,\fpeval{#1 * 0.05}\linewidth);
+        \end{tikzpicture}
+    \fi
+}
+
+\newcommand{\gpage}{
+    \ifKV@kpmgu@grid
+        \clearpage
+    \fi
+}
+
+\newcommand{\pitem}[1]{%
+    \item (#1Б)\hspace{0.4em}
+}
+
+\RequirePackage[pagestyles]{titlesec}
+
+\titleformat{\section}[block]
+{\filcenter\large\scshape}
+{}
+{0pt}
+{}
+[]
+
+
+\newpagestyle{main}[\small]{
+    %\setheadrule{0.6pt}%
+    \sethead[]%                                                 even-left
+            []%          even-center
+            []%                                                 even-right
+            {}%                                                 odd-left
+            {\hspace{2cm}
+            \raisebox{0.87\height}[0pt]{\begin{tabularx}{\linewidth}{cc}
+                \multirow{3}{*}{\includegraphics[width=1.1cm]{kpmlogo.jpg}} & {\scshape\color{colorLogo} частное учреждение общеобразовательная организация } \\
+                 & {\Large\color{colorLogo}  классический пансион МГУ} \\
+                 & {\scshape\color{colorLogo}  имени М. В. Ломоносова}
+                \end{tabularx}}}%                   odd-center
+            {}
+            \headrule
+}
+
+\assignpagestyle{\section}{main}
+
+\RequirePackage[final,
+pdfauthor={Классический пансион МГУ имени М. В. Ломоносова}, luatex]{hyperref}
