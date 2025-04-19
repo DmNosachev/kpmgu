@@ -50,6 +50,7 @@
 
 \RequirePackage{tikz}
 \RequirePackage{pgfplots}
+\RequirePackage{tkz-euclide}
 
 \RequirePackage{xfp}
 \newcommand{\exgrid}[1]{
@@ -59,6 +60,9 @@
         \end{tikzpicture}
     \fi
 }
+
+% счетчик кириллицей
+\AddEnumerateCounter{\asbuk}{\russian@alph}{щ}
 
 \newcommand{\gpage}{
     \ifKV@kpmgu@grid
